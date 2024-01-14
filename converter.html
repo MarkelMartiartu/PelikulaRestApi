@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>konbert</title>
+  </head>
+  <body>
+    <script>
+      const jsonData = [/*oso luzeaaaaaaa*/];
+
+      const modifiedData = jsonData.map((entry) => ({
+        ...entry,
+        thumbnail: {
+          image: entry.thumbnail,
+          width: entry.thumbnail_width,
+          height: entry.thumbnail_height,
+        },
+      }));
+
+      modifiedData.forEach((entry) => {
+        delete entry.thumbnail_width;
+        delete entry.thumbnail_height;
+      });
+
+      const jsonString = JSON.stringify(modifiedData, null, 2);
+
+      const blob = new Blob([jsonString], { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "data2.json";
+      link.click();
+    </script>
+  </body>
+</html>

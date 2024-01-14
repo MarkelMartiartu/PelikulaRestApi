@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo-container
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: Admin123
+
+  restapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: restapi-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://root:Admin123@mongo:27017/pelikulak
